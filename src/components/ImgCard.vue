@@ -1,6 +1,6 @@
 <template lang="pug">
   li.img-card
-    a(:href="img.link")
+    a(:href="img.links.html")
       img(:url="img.urls.small")
 </template>
 

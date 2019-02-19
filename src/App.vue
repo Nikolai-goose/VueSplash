@@ -2,21 +2,17 @@
   .app
     header.header
       h1 temporary header
-    ul
-      img-card(
-        v-for="img in getImages"
-        :key="img.id"
-        v-bind:img="img")
+    img-list(:images="getImages")
 </template>
 
 <script>
-import ImgCard from '@/components/ImgCard.vue';
+import ImgList from '@/components/ImgList.vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'app',
   components: {
-    ImgCard,
+    ImgList,
   },
   created() {
     this.fetch();
