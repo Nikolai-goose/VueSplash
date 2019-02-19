@@ -1,13 +1,17 @@
 <template lang="pug">
   li.img-card
-    h3 {{ title }}
+    a(:href="img.link")
+      img(:url="img.urls.small")
 </template>
 
 <script>
 export default {
   name: 'ImgCard',
-  props: [
-    'title',
-  ],
+  props: {
+    img: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>

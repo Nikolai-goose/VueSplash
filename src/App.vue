@@ -5,7 +5,8 @@
     ul
       img-card(
         v-for="img in getImages"
-        v-bind:title="img.title")
+        :key="img.id"
+        v-bind:img="img")
 </template>
 
 <script>

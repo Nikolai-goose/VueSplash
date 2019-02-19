@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
+import axios from './axios';
 
 Vue.use(Vuex);
 
@@ -18,12 +18,12 @@ export default new Vuex.Store({
   },
   actions: {
     fetch({ commit }) {
-      axios.get('http://jsonplaceholder.typicode.com/posts')
-        .then((response) => {
-          commit('fetch', response.data);
+      axios.get('/photos/')
+        .then((res) => {
+          commit('fetch', res.data);
         })
-        .catch((e) => {
-          console.log(e);
+        .catch((err) => {
+          console.log(err);
         });
     },
   },
