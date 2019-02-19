@@ -1,5 +1,5 @@
 <template lang="pug">
-  ul(v-masonry item-selector=".image-card").image-cards
+  ul(v-masonry item-selector=".card").cards
     img-card(
       v-masonry-tile
       v-for="img in images"
@@ -25,7 +25,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .image-cards {
+  .cards {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
