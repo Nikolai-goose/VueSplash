@@ -1,6 +1,7 @@
 <template lang="pug">
-  ul
+  ul(v-masonry item-selector=".image-card").image-cards
     img-card(
+      v-masonry-tile
       v-for="img in images"
       :key="img.id"
       :img="img")
@@ -22,3 +23,14 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .image-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

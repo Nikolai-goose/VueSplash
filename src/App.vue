@@ -2,7 +2,8 @@
   .app
     header.header
       h1 temporary header
-    img-list(:images="getImages")
+    .section
+      img-list(:images="getImages")
 </template>
 
 <script>
@@ -30,5 +31,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+  .section {
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 80%;
+  }
 </style>

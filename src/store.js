@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { VueMasonryPlugin } from 'vue-masonry';
 import axios from './axios';
 
 Vue.use(Vuex);
+Vue.use(VueMasonryPlugin);
 
 export default new Vuex.Store({
   state: {
