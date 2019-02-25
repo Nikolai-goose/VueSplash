@@ -10,6 +10,8 @@ export default new Vuex.Store({
   state: {
     imgs: [],
     currentPage: 1,
+    modalVisible: false,
+    currentPhotoId: null,
   },
   mutations: {
     updateCurrentPage(state) {
@@ -18,10 +20,19 @@ export default new Vuex.Store({
     setImages(state, imgs) {
       state.imgs = state.imgs.concat(imgs); //eslint-disable-line
     },
+    showModal(state, photoId) {
+      state.modalVisible = true;
+      state.currentPhotoId = photoId;
+    },
+    hideModal(state) {
+      state.modalVisible = false;
+    },
   },
   getters: {
     getImages: state => state.imgs,
     getCurrentPage: state => state.currentPage,
+    getModalVisible: state => state.modalVisible,
+    getCurrentPhotoId: state => state.currentPhotoId,
   },
   actions: {
     fetchImages({ commit }, currentPage) {
