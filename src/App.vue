@@ -4,16 +4,19 @@
       h1 temporary header
     .section
       img-list(:images="getImages")
+      loader
 </template>
 
 <script>
 import ImgList from '@/components/ImgList.vue';
+import Loader from '@/components/Loader.vue';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'app',
   components: {
     ImgList,
+    Loader,
   },
   created() {
     this.fetchImages(this.getCurrentPage);
@@ -24,11 +27,13 @@ export default {
     ]),
     scroll() {
       window.onscroll = () => {
-        const bottomOfWindow = document.documentElement.scrollTop
+        const currentScroll = document.documentElement.scrollTop;
+        const bottomOfWindow = currentScroll
         + window.innerHeight === document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
           this.fetchImages(this.getCurrentPage);
+          document.documentElement.scrollTop = currentScroll - 1; // fixes infinite load
         }
       };
     },
