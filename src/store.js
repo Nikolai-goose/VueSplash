@@ -25,6 +25,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchImages({ commit }, currentPage) {
+      console.log('fetching');
       axios.get(`/photos?page=${currentPage}`)
         .then((res) => {
           commit('updateCurrentPage');

@@ -11,6 +11,7 @@
 import ImgList from '@/components/ImgList.vue';
 import Loader from '@/components/Loader.vue';
 import { mapGetters, mapActions } from 'vuex';
+import { debounce } from 'debounce';
 
 export default {
   name: 'app',
@@ -32,8 +33,9 @@ export default {
         + window.innerHeight === document.documentElement.offsetHeight;
 
         if (bottomOfWindow) {
-          this.fetchImages(this.getCurrentPage);
-          document.documentElement.scrollTop = currentScroll - 1; // fixes infinite load
+          debounce(
+            this.fetchImages(this.getCurrentPage), 100,
+          );
         }
       };
     },
