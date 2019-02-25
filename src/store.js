@@ -9,20 +9,26 @@ Vue.use(VueMasonryPlugin);
 export default new Vuex.Store({
   state: {
     imgs: [],
+    currentPage: 1,
   },
   mutations: {
-    fetch(state, imgs) {
+    updateCurrentPage(state) {
+      state.currentPage += 1;
+    },
+    setImages(state, imgs) {
       state.imgs = state.imgs.concat(imgs); //eslint-disable-line
     },
   },
   getters: {
     getImages: state => state.imgs,
+    getCurrentPage: state => state.currentPage,
   },
   actions: {
-    fetch({ commit }) {
-      axios.get('/photos/')
+    fetchImages({ commit }, currentPage) {
+      axios.get(`/photos?page=${currentPage}`)
         .then((res) => {
-          commit('fetch', res.data);
+          commit('updateCurrentPage');
+          commit('setImages', res.data);
         })
         .catch((err) => {
           console.log(err);

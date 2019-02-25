@@ -1,5 +1,8 @@
 <template lang="pug">
-  ul(v-masonry item-selector=".card").cards
+  ul(
+    v-masonry
+    transition-duration="0"
+    item-selector=".card").cards
     img-card(
       v-masonry-tile
       v-for="img in images"

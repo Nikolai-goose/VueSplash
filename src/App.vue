@@ -16,17 +16,31 @@ export default {
     ImgList,
   },
   created() {
-    this.fetch();
+    this.fetchImages(this.getCurrentPage);
   },
   methods: {
     ...mapActions([
-      'fetch',
+      'fetchImages',
     ]),
+    scroll() {
+      window.onscroll = () => {
+        const bottomOfWindow = document.documentElement.scrollTop
+        + window.innerHeight === document.documentElement.offsetHeight;
+
+        if (bottomOfWindow) {
+          this.fetchImages(this.getCurrentPage);
+        }
+      };
+    },
   },
   computed: {
     ...mapGetters([
       'getImages',
+      'getCurrentPage',
     ]),
+  },
+  mounted() {
+    this.scroll();
   },
 };
 </script>
