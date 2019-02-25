@@ -18,8 +18,7 @@ export default {
   .loader {
     align-items: center;
     display: flex;
-    height: 120px;
-    margin-bottom: calc(100vh - 120px);
+    height: 170px;
     width: 100%;
 
     .cube-loader {
