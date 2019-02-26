@@ -19,12 +19,8 @@ export default {
 <style lang="scss">
   .user-link {
     align-items: center;
-    bottom: 12px;
-    color: #ffffff;
     cursor: pointer;
     display: flex;
-    left: 12px;
-    position: absolute;
 
     &__image {
       border-radius: 50%;

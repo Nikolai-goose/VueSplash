@@ -5,7 +5,11 @@
     .section
       img-list(:images="getImages")
       loader
-    modal(v-if="getModalVisible")
+    modal(
+      v-if="getModalVisible"
+      :photo="getCurrentPhoto"
+      :loading="getModalLoading"
+    )
 </template>
 
 <script>
@@ -48,6 +52,8 @@ export default {
       'getImages',
       'getCurrentPage',
       'getModalVisible',
+      'getModalLoading',
+      'getCurrentPhoto',
     ]),
   },
   mounted() {
@@ -73,6 +79,7 @@ export default {
 
   .button {
     background-color: #000000;
+    border: none;
     border-radius: 4px;
     color: #ffffff;
     cursor: pointer;
@@ -85,9 +92,36 @@ export default {
       background-color: #ffffff;
       color: #000000;
     }
-
     &--transparent {
+      background-color: transparent;
+      color: #000000;
+    }
+    &--semitransparent {
       opacity: 0.7;
+    }
+    &--close {
+      height: 24px;
+      padding: 0;
+      position: relative;
+      width: 24px;
+
+      &::before,
+      &::after {
+        background-color: #000000;
+        border-radius: 3px;
+        content: "";
+        height: 3px;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        width: 16px;
+      }
+      &::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      &::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
     }
   }
 </style>

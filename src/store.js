@@ -10,8 +10,11 @@ export default new Vuex.Store({
   state: {
     imgs: [],
     currentPage: 1,
-    modalVisible: false,
-    currentPhotoId: null,
+    modal: {
+      visible: false,
+      loading: false,
+      currentPhoto: {},
+    },
   },
   mutations: {
     updateCurrentPage(state) {
@@ -20,19 +23,25 @@ export default new Vuex.Store({
     setImages(state, imgs) {
       state.imgs = state.imgs.concat(imgs); //eslint-disable-line
     },
-    showModal(state, photoId) {
-      state.modalVisible = true;
-      state.currentPhotoId = photoId;
+    showModal(state) {
+      state.modal.visible = true;
     },
     hideModal(state) {
-      state.modalVisible = false;
+      state.modal.visible = false;
+    },
+    setModalLoading(state) {
+      state.modal.loading = !state.modal.loading;
+    },
+    setCurrentPhoto(state, photo) {
+      state.modal.currentPhoto = photo;
     },
   },
   getters: {
     getImages: state => state.imgs,
     getCurrentPage: state => state.currentPage,
-    getModalVisible: state => state.modalVisible,
-    getCurrentPhotoId: state => state.currentPhotoId,
+    getModalVisible: state => state.modal.visible,
+    getModalLoading: state => state.modal.loading,
+    getCurrentPhoto: state => state.modal.currentPhoto,
   },
   actions: {
     fetchImages({ commit }, currentPage) {
@@ -42,6 +51,22 @@ export default new Vuex.Store({
           commit('setImages', res.data);
         })
         .catch((err) => {
+          console.log(err);
+        });
+    },
+    openModal({ commit, dispatch }, photoId) {
+      commit('showModal');
+      dispatch('fetchSimgleImage', photoId);
+    },
+    fetchSimgleImage({ commit }, photoId) {
+      commit('setModalLoading');
+      axios.get(`/photos/${photoId}`)
+        .then((res) => {
+          commit('setModalLoading');
+          commit('setCurrentPhoto', res.data);
+        })
+        .catch((err) => {
+          commit('setModalLoading');
           console.log(err);
         });
     },

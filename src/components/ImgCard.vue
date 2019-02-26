@@ -1,15 +1,20 @@
 <template lang="pug">
   li.card
     .card__hover-block.hover-block(:href="img.links.html")
-      user-link(:user="img.user")
-      .button.button--white.button--transparent.hover-block__button(@click="openModal")
-        span.fas.fa-expand
+      div(class="hover-block__item hover-block__item--bottom-left")
+        user-link(:user="img.user")
+      div(class="hover-block__item hover-block__item--bottom-right")
+        button(
+          class="button button--white button--semitransparent"
+          @click="showModal"
+        )
+          span.fas.fa-expand
     img.card__image(:src="img.urls.small")
 </template>
 
 <script>
 import UserLink from '@/components/UserLink.vue';
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ImgCard',
@@ -23,11 +28,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations([
-      'showModal',
+    ...mapActions([
+      'openModal',
     ]),
-    openModal() {
-      this.showModal(this.img.id);
+    showModal() {
+      this.openModal(this.img.id);
     },
   },
 };
@@ -68,10 +73,17 @@ export default {
   .hover-block {
     position: absolute;
 
-    &__button {
-      bottom: 12px;
-      right: 12px;
-      position: absolute
+    &__item {
+      color: #ffffff;
+      position: absolute;
+      &--bottom-left {
+        left: 12px;
+        bottom: 12px;
+      }
+      &--bottom-right {
+        bottom: 12px;
+        right: 12px;
+      }
     }
   }
 </style>
