@@ -77,6 +77,23 @@ export default {
     width: 80%;
   }
 
+  .hover-block {
+    position: absolute;
+
+    &__item {
+      color: #ffffff;
+      position: absolute;
+      &--bottom-left {
+        left: 12px;
+        bottom: 12px;
+      }
+      &--bottom-right {
+        bottom: 12px;
+        right: 12px;
+      }
+    }
+  }
+
   .button {
     background-color: #000000;
     border: none;
