@@ -31,7 +31,7 @@ export default new Vuex.Store({
     },
     hideModal(state) {
       state.modal.visible = false;
-      state.modal.currentPhoto = null;
+      state.modal.currentPhoto = {};
     },
     setModalLoading(state) {
       state.modal.loading = !state.modal.loading;
