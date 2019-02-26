@@ -4,102 +4,128 @@
     .modal-backdrop(
       @click="hide"
     )
-      .modal(
+      loader(
+        v-if="this.loading"
+      )
+      .modal.hover-block(
+        v-else
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
       )
-        header.modal-header
-          slot(name="header")
-            p modal
-            button.button-close(
-              aria-label="Close modal"
-              @click="hideModal"
-            )
-              span x
-        section.modal-body
-          slot(name="body")
-            p I'm the default body!
+        .hover-block__item.hover-block__item--top-left
+          button.button.button--transparent.button--close(
+            aria-label="Close modal"
+            @click="hideModal"
+          )
+        section.modal__body.hover-block__item.hover-block__item--center
+          v-lazy-image.modal__image(
+            :src="photo.urls.full"
+            :src-placeholder="photo.urls.small"
+          )
+        .hover-block__item.hover-block__item--bottom-left
+          user-link(:user="photo.user")
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import UserLink from '@/components/UserLink.vue';
+import Loader from '@/components/Loader.vue';
+import VLazyImage from 'v-lazy-image';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'Modal',
+  components: {
+    UserLink,
+    Loader,
+    VLazyImage,
+  },
+  props: {
+    photo: {
+      type: Object,
+      required: true,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+    },
+  },
   methods: {
     ...mapMutations([
       'hideModal',
     ]),
     hide(e) {
-      if (e.target.className === 'modal-backdrop') this.hideModal();
+      if (e.target.className === 'modal-backdrop' || e.target.className === 'modal hover-block') this.hideModal();
     },
-  },
-  computed: {
-    ...mapGetters([
-      'getCurrentPhotoId',
-    ]),
   },
 };
 </script>
 
-<style>
+<style lang="scss">
   .modal-backdrop {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .modal {
-    background: #FFFFFF;
-    box-shadow: 2px 2px 20px 1px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    &__header,
+    &__body,
+    &__footer {
+      display: flex;
+    }
+
+    &__header {
+      border-bottom: 1px solid #eeeeee;
+      justify-content: space-between;
+    }
+
+    &__body {
+      background: #ffffff;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      max-height: 80%;
+      max-width: 80%;
+      overflow-x: auto;
+      width: auto;
+    }
+
+    &__image {
+      height: 100%;
+    }
+
+    &__footer {
+      border-top: 1px solid #eeeeee;
+      justify-content: flex-end;
+    }
   }
 
-  .modal-header,
-  .modal-footer {
-    padding: 15px;
-    display: flex;
+  @media (max-width: 1400px) {
+    .modal {
+      &__body {
+        max-width: 90%;
+      }
+    }
   }
 
-  .modal-header {
-    border-bottom: 1px solid #eeeeee;
-    color: #4AAE9B;
-    justify-content: space-between;
-  }
-
-  .modal-footer {
-    border-top: 1px solid #eeeeee;
-    justify-content: flex-end;
-  }
-
-  .modal-body {
-    position: relative;
-    padding: 20px 10px;
-  }
-
-  .button-close {
-    border: none;
-    font-size: 20px;
-    padding: 20px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #4AAE9B;
-    background: transparent;
-  }
-
-  .button-green {
-    color: white;
-    background: #4AAE9B;
-    border: 1px solid #4AAE9B;
-    border-radius: 2px;
+  @media (max-width: 768px) {
+    .modal {
+      &__body {
+        max-width: 100%;
+      }
+    }
   }
 </style>

@@ -83,6 +83,20 @@ export default {
     &__item {
       color: #ffffff;
       position: absolute;
+
+      &--center {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      &--top-left {
+        left: 12px;
+        top: 12px;
+      }
+      &--top-right {
+        top: 12px;
+        right: 12px;
+      }
       &--bottom-left {
         left: 12px;
         bottom: 12px;
@@ -124,14 +138,15 @@ export default {
 
       &::before,
       &::after {
-        background-color: #000000;
+        background-color: #ffffff;
         border-radius: 3px;
         content: "";
-        height: 3px;
+        height: 4px;
         left: 50%;
         position: absolute;
         top: 50%;
-        width: 16px;
+        transition: 0.3s ease-in-out;
+        width: 24px;
       }
       &::before {
         transform: translate(-50%, -50%) rotate(45deg);
@@ -139,6 +154,21 @@ export default {
       &::after {
         transform: translate(-50%, -50%) rotate(-45deg);
       }
+
+      &:hover::before,
+      &:hover::after {
+        height: 5px;
+        width: 28px;
+      }
+    }
+  }
+
+  .v-lazy-image {
+    filter: blur(10px);
+    transition: filter 0.7s;
+
+    &-loaded {
+      filter: blur(0);
     }
   }
 </style>
