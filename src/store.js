@@ -21,7 +21,10 @@ export default new Vuex.Store({
       state.currentPage += 1;
     },
     setImages(state, imgs) {
-      state.imgs = state.imgs.concat(imgs); //eslint-disable-line
+      state.imgs = state.imgs.concat(imgs);
+    },
+    clearState(state) {
+      state.imgs = [];
     },
     showModal(state) {
       state.modal.visible = true;
@@ -46,7 +49,7 @@ export default new Vuex.Store({
   },
   actions: {
     fetchImages({ commit }, currentPage) {
-      axios.get(`/photos?page=${currentPage}`)
+      axios.get(`/photos?page=${currentPage}&per_page=20`)
         .then((res) => {
           commit('updateCurrentPage');
           commit('setImages', res.data);
@@ -54,6 +57,9 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err);
         });
+    },
+    clearImages({ commit }) {
+      commit('clearState');
     },
     openModal({ commit, dispatch }, photoId) {
       commit('showModal');

@@ -29,9 +29,13 @@ export default {
   created() {
     this.fetchImages(this.getCurrentPage);
   },
+  destroyed() {
+    this.clearImages();
+  },
   methods: {
     ...mapActions([
       'fetchImages',
+      'clearImages',
     ]),
     scroll() {
       window.onscroll = () => {
